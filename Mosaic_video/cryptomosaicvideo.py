@@ -14,24 +14,52 @@ import os
 # In[2]:
 
 
+LICENSE_TEXT = """
+SOFTWARE LICENSE
+
+This software is licensed under the following terms:
+- You may not distribute it without explicit permission.
+- Free for non-commercial use only.
+- You may not modify or reverse engineer the code.
+
+(Additional license terms...)
+ 
+Created by: CutVonDrake
+"""
+
+# Display the license at startup
+print(LICENSE_TEXT)
+user_input = input("\nDo you accept the terms of the license? (y/n): ").strip().lower()
+
+if user_input != 'y':
+    print("You cannot use the program without accepting the license terms.")
+    exit(1)
+
+# Proceed with the rest of the program
+print("Welcome to the program!")
+
+
+# In[ ]:
+
+
 # Specifica il percorso del file video
 #video_path = C:\Users\andre\Python notebooks\Media\video\battle_game.mp4
-crypto_number=(input('Enter a decryption password: minimum 10 characters'))
+crypto_number=(input('Enter a decryption password: minimum 10 characters:'))
 crypto_number=int(''.join(str(ord(c)) for c in crypto_number))
-video_path=input('Paste video path: no quotes')
+video_path=input('Paste video path: no quotes:')
 # Ottieni la cartella in cui si trova il video
 output_folder = os.path.dirname(video_path)
 output_video = os.path.join(output_folder, 'mosaic_video.mp4')
 #specifica quanti secondi del video prendere
-seconds= int(input('Cut video in seconds'))
-n=int(input('Mosaic complexity: insert a number from 2 to 100 (lower number higher complexity'))
+seconds= int(input('Cut video in seconds:'))
+n=int(input('Mosaic complexity: insert a number from 2 to 100 (lower number higher complexity; suggested=10):'))
 
 
-# In[3]:
+# In[ ]:
 
 
 # Specifica un fattore di scala per il ridimensionamento
-resize_scale = 0.5
+#resize_scale = 0.5
 cap = cv2.VideoCapture(video_path)
 d=0
 frames=[]
@@ -40,7 +68,7 @@ while d<(seconds*30):
     ret, frame = cap.read()
 
     #Qui sta leggendo il fotogramma quindi per modificare l'immagine fare tutto qui
-    frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+    #frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
     img=frame.copy()
     random.seed(int(f'{crypto_number}'*4))
     img=img[0:img.shape[0]//n*n,0:img.shape[1]//n*n,:]

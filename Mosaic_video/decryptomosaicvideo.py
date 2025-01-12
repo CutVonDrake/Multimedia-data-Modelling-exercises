@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[6]:
 
 
 import numpy as np
@@ -12,32 +12,63 @@ import os
 import glob
 
 
-# In[2]:
+# In[ ]:
+
+
+LICENSE_TEXT = """
+SOFTWARE LICENSE
+
+This software is licensed under the following terms:
+- You may not distribute it without explicit permission.
+- Free for non-commercial use only.
+- You may not modify or reverse engineer the code.
+
+(Additional license terms...)
+ 
+Created by: CutVonDrake
+"""
+
+# Display the license at startup
+print(LICENSE_TEXT)
+user_input = input("\nDo you accept the terms of the license? (y/n): ").strip().lower()
+
+if user_input != 'y':
+    print("You cannot use the program without accepting the license terms.")
+    exit(1)
+
+# Proceed with the rest of the program
+print("Welcome to the program!")
+
+
+# In[7]:
 
 
 # Specifica il percorso del file video
 #video_path = "C:\Users\andre\Python notebooks\Media\video\mosaic_video.mp4"
-crypto_number=(input('Enter the decryption password: minimum 10 characters'))
+crypto_number=(input('Enter the decryption password: minimum 10 characters:'))
 crypto_number=int(''.join(str(ord(c)) for c in crypto_number))
-video_path=input('Paste video path: no quotes')
+video_path=input('Paste video path: no quotes:')
 # Ottieni la cartella in cui si trova il video
 output_folder = os.path.dirname(video_path)
 output_video = os.path.join(output_folder, 'demosaic_video.mp4')
 # Specifica un fattore di scala per il ridimensionamento
 #specifica quanti secondi del video prendere
-n=int(input('Mosaic complexity: insert a number from 2 to 100 (lower number higher complexity'))
+n=int(input('Mosaic complexity: insert the right number:'))
 
 
-# In[3]:
+# In[8]:
 
 
 cap = cv2.VideoCapture(video_path)
+total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 d=0
 frames=[]
-seconds=5
-while d<(seconds*30):
+while True:
     # Legge un fotogramma dal file video
     ret, frame = cap.read()
+    if not ret:
+        print("Fine del video.")
+        break
     #MODIFICHE
     img=frame.copy()
     img1=frame.copy()
@@ -58,7 +89,7 @@ while d<(seconds*30):
     d+=1
 
     # Aggiorna la barra manuale
-    percent = (d / (seconds * 30)) * 100
+    percent = (d / (total_frames)) * 100
     bar = ('#' * int(percent // 2)).ljust(50, '-')
     print(f"\r[{bar}] {percent:.2f}%", end='')
     # Se non ci sono più fotogrammi, esci dal ciclo

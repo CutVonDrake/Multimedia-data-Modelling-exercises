@@ -1,5 +1,5 @@
 ('C:\\Users\\andre\\Python '
- 'notebooks\\Notebooks\\MDMNote1\\Multimedia-data-Modelling-exercises\\Exams_simulations\\build\\cryptomosaicvideo\\PYZ-00.pyz',
+ 'notebooks\\Notebooks\\MDMNote1\\Multimedia-data-Modelling-exercises\\Mosaic_video\\build\\cryptomosaicvideo\\PYZ-00.pyz',
  [('PIL',
    'C:\\Users\\andre\\Miniconda3\\Lib\\site-packages\\PIL\\__init__.py',
    'PYMODULE'),
